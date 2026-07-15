@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Conectar WhatsApp</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: #f0f2f5; margin: 0; }
+        .card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); text-align: center; }
+        img { max-width: 300px; margin: 20px 0; border: 1px solid #ddd; padding: 10px; border-radius: 8px; }
+        p { color: #555; }
+        .status { font-weight: bold; color: #ff9800; }
+        .connected { color: #4caf50; font-size: 24px; }
+    </style>
+</head>
+<body>
+    <div class="card" id="container">
+        <h2>Conecte seu WhatsApp</h2>
+        <p>Escaneie o QR Code abaixo com seu celular.<br/>Ele se atualiza automaticamente.</p>
+        <img id="qr" src="" alt="Carregando QR Code..." />
+        <p>Status: <span class="status" id="status-text">Aguardando...</span></p>
+    </div>
+
+    <script>
+        function checkStatus() {
+            fetch("http://localhost:8080/instance/connectionState/PortfolioBot", {
+                headers: { "apikey": "BRL442A27A7955FADDF4AC5B97DA6C9" }
+            })
+            .then(res => res.json())
+            .then(data => {
+                const state = data?.instance?.state;
+                document.getElementById('status-text').innerText = state || 'Desconhecido';
+                
+                if (state === 'open') {
+                    document.getElementById('container').innerHTML = '<h2 class="connected">✅ WhatsApp Conectado com Sucesso!</h2><p>Você já pode fechar esta página.</p>';
+                } else if (state === 'connecting') {
+                    fetchQR();
+                } else {
+                    // Try to fetch QR anyway if not open
+                    fetchQR();
+                }
+            })
+            .catch(err => console.error(err));
+        }
+
+        function fetchQR() {
+            fetch("http://localhost:8080/instance/connect/PortfolioBot", {
+                headers: { "apikey": "BRL442A27A7955FADDF4AC5B97DA6C9" }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.base64) {
+                    document.getElementById('qr').src = data.base64;
+                }
+            })
+            .catch(err => console.error(err));
+        }
+
+        // Run immediately and then every 5 seconds
+        checkStatus();
+        setInterval(checkStatus, 5000);
+    </script>
+</body>
+</html>
