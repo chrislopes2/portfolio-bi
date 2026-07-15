@@ -31,7 +31,7 @@ export async function GET(req: NextRequest) {
     await browser.close()
     
     // Retorna a imagem
-    return new NextResponse(screenshot, {
+    return new NextResponse(Buffer.from(screenshot), {
       status: 200,
       headers: {
         'Content-Type': 'image/png',
