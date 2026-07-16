@@ -23,9 +23,9 @@ export default async function SettingsPage({
   const resolvedSearchParams = await searchParams
   const tab = typeof resolvedSearchParams.tab === 'string' ? resolvedSearchParams.tab : 'users'
 
-  let usersData = []
-  let dashboardsData = []
-  let automationsData = []
+  let usersData: any[] = []
+  let dashboardsData: any[] = []
+  let automationsData: any[] = []
 
   if (isAdmin) {
       const [{ users }, { dashboards }, { automations }] = await Promise.all([
