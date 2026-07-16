@@ -1,5 +1,5 @@
-import { login, signup } from "./actions";
-import { BarChart3, Lock, Mail, User } from "lucide-react";
+import { login } from "./actions";
+import { BarChart3, Lock, Mail } from "lucide-react";
 
 export default async function LoginPage(props: { searchParams: Promise<{ message: string }> }) {
   const searchParams = await props.searchParams;
@@ -57,21 +57,7 @@ export default async function LoginPage(props: { searchParams: Promise<{ message
             </div>
           </div>
           
-          <div className="flex flex-col gap-1.5 mt-2">
-            <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider ml-1" htmlFor="name">
-              Nome (Apenas Registro)
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
-                <User className="w-4 h-4" />
-              </div>
-              <input
-                className="w-full bg-slate-950/50 border border-slate-700/80 rounded-xl px-4 py-3 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-[#EAB308]/50 focus:border-[#EAB308]/30 transition-all shadow-inner"
-                name="name"
-                placeholder="Seu Nome Completo"
-              />
-            </div>
-          </div>
+
 
           <div className="flex flex-col gap-3 mt-4">
             <button
@@ -80,12 +66,7 @@ export default async function LoginPage(props: { searchParams: Promise<{ message
             >
               Entrar no Portal
             </button>
-            <button
-              formAction={signup}
-              className="bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/80 rounded-xl px-4 py-3 text-sm transition-all hover:text-white"
-            >
-              Solicitar Acesso (Registrar)
-            </button>
+
           </div>
           
           {searchParams?.message && (
