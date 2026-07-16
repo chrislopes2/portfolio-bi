@@ -38,7 +38,7 @@ export default async function LoginPage(props: { searchParams: Promise<{ message
               </div>
             </div>
             <h1 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-600 tracking-widest uppercase drop-shadow-[0_0_10px_rgba(245,158,11,0.3)]">
-              C.R.I.S.
+              Cristhofer Analytics
             </h1>
             <p className="text-amber-500/70 text-[10px] mt-2 text-center uppercase tracking-[0.3em] font-mono">
               Inteligência Artificial Core
